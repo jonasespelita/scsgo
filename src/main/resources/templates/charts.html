@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>SCS GO</title>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <script th:replace="fragments/head"/>
+
+        <script type="text/javascript" src="js/charts/vertical_bars.js"></script>
+        <script type="text/javascript" src="js/charts/horizontal_bars.js"></script>
+        <script type="text/javascript" src="js/charts/simple_graph.js"></script>
+        <script type="text/javascript" src="js/charts/auto_filled.js"></script>
+        <script type="text/javascript" src="js/charts/auto_empty.js"></script>
+        <script type="text/javascript" src="js/charts/multiple_axes.js"></script>
+
+        <script type="text/javascript" src="js/charts/animated_1.js"></script>
+        <script type="text/javascript" src="js/charts/animated_2.js"></script>
+        <script type="text/javascript" src="js/charts/animated_3.js"></script>
+
+        <script type="text/javascript" src="js/charts/donut.js"></script>
+        <script type="text/javascript" src="js/charts/pie.js"></script>
+        <script type="text/javascript" src="js/charts/pie_full.js"></script>
+
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <div th:replace="fragments/navbar :: navbar"></div>
+        <!-- /navbar -->
+
+
+        <!-- Page header -->
+        <div th:replace="fragments/header :: header"></div>
+        <!-- /page header -->
+
+
+        <!-- Page container -->
+        <div class="page-container container-fluid">
+
+            <!-- Sidebar -->
+            <div th:replace="fragments/sidebar :: sidebar"></div>
+
+            <!-- /sidebar -->
+
+
+            <!-- Page content -->
+            <div class="page-content">
+
+                <!-- Page title -->
+                <div class="page-title">
+                    <h5><i class="fa fa-bar-chart-o"></i> Charts <small>flot.js charts</small></h5>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-link btn-lg btn-icon dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs"></i><span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">One more line</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /page title -->
+
+
+                <!-- Statistics -->
+                <ul class="row stats">
+                    <li class="col-xs-3"><a href="#" class="btn btn-default">52</a> <span>new pending tasks</span></li>
+                    <li class="col-xs-3"><a href="#" class="btn btn-default">520</a> <span>pending orders</span></li>
+                    <li class="col-xs-3"><a href="#" class="btn btn-default">14</a> <span>new opened tickets</span></li>
+                    <li class="col-xs-3"><a href="#" class="btn btn-default">48</a> <span>new user registrations</span></li>
+                </ul>
+                <!-- /statistics -->
+
+
+                <!-- Animated graphs -->
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <!-- Animated graph 1 -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title"><i class="icon-calendar2"></i> Animated graph 1</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="animated_1"></div>
+                            </div>
+                        </div>
+                        <!-- /animated graph 1 -->
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <!-- Animated graph 2 -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title"><i class="icon-calendar2"></i> Animated graph 2</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="animated_2"></div>
+                            </div>
+                        </div>
+                        <!-- /animated graph 2 -->
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <!-- Animated graph 3 -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title"><i class="icon-calendar2"></i> Animated graph 3</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="animated_3"></div>
+                            </div>
+                        </div>
+                        <!-- /animated graph 3 -->
+
+                    </div>
+                </div>
+                <!-- /animated graphs -->
+
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <!-- Vertical bars -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Vertical bars</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="vertical_bars"></div>
+                            </div>
+                        </div>
+                        <!-- /vertical bars -->
+
+
+                        <!-- Simple chart -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Simple chart</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="simple_graph"></div>
+                            </div>
+                        </div>
+                        <!-- /simple chart -->
+
+
+                        <!-- Auto updating graph (empty) -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Empty updating graph</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="auto_empty"></div>
+                            </div>
+                        </div>
+                        <!-- /auto updating graph (empty) -->
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <!-- Horizontal bars -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Horizontal bars</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="horizontal_bars"></div>
+                            </div>
+                        </div>
+                        <!-- /horizontal bars -->
+
+
+                        <!-- Auto updating graph (empty) -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Multiple axes</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="multiple_axes"></div>
+                            </div>
+                        </div>
+                        <!-- /auto updating graph (empty) -->
+
+
+                        <!-- Auto updating graph (filled) -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Filled updating graph</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="auto_filled"></div>
+                            </div>
+                        </div>
+                        <!-- /auto updating graph (filled) -->
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <!-- Donut -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Donut</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="donut"></div>
+                            </div>
+                        </div>
+                        <!-- /donut -->
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <!-- Pie -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Pie</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="pie"></div>
+                            </div>
+                        </div>
+                        <!-- /pie -->
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <!-- Pie -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Pie full</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="graph-standard" id="pie_full"></div>
+                            </div>
+                        </div>
+                        <!-- /pie -->
+
+                    </div>
+                </div>
+
+
+                <!-- Footer -->
+                <div class="footer">
+                    &copy; Copyright 2011. All rights reserved. It's Brain admin theme by <a href="#" title="">Eugene Kopyov</a>
+                </div>
+                <!-- /footer -->
+
+
+            </div>
+            <!-- /page content -->
+
+        </div>
+        <!-- page container -->
+
+    </body>
+</html>
