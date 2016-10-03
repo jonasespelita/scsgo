@@ -43,4 +43,10 @@ public class DashboardController {
     public String report(Model model) {
         return "report";
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
+
 }

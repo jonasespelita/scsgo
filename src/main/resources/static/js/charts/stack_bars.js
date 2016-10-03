@@ -1,61 +1,25 @@
 $(function () {
-    var previousPoint;
-
     var d1 = [];
-    for (var i = 0; i <= 10; i += 1)
+    for (var i = 0; i <= 100; i += 1) {
         d1.push([i, parseInt(Math.random() * 30)]);
+    }
 
     var d2 = [];
-    for (var i = 0; i <= 10; i += 1)
+    for (var i = 0; i <= 100; i += 1) {
         d2.push([i, parseInt(Math.random() * 30)]);
-
-    var d3 = [];
-    for (var i = 0; i <= 10; i += 1)
-        d3.push([i, parseInt(Math.random() * 30)]);
-
-    var ds = new Array();
-
-    ds.push({
-        data: d1,
-        bars: {
-            show: true,
-            barWidth: 0.2,
-            order: 1,
-        }
-    });
-    ds.push({
-        data: d2,
-        bars: {
-            show: true,
-            barWidth: 0.2,
-            order: 2
-        }
-    });
-    ds.push({
-        data: d3,
-        bars: {
-            show: true,
-            barWidth: 0.2,
-            order: 3
-        }
-    });
-
-    //tooltip function
-    function showTooltip(x, y, contents, areAbsoluteXY) {
-        var rootElt = 'body';
-
-        $('<div id="tooltip" class="chart-tooltip">' + contents + '</div>').css({
-            top: y - 50,
-            left: x - 6,
-            opacity: 0.9
-        }).prependTo(rootElt).show();
     }
-    ;
-
+    console.log(d1)
     //Display graph
-    $.plot($("#vertical_bars"), ds, {
+    $.plot($("#vertical_bars"), [d1, d2], {
         colors: ["#ee7951", "#6db6ee", "#95c832", "#993eb7", "#3ba3aa"],
-        grid: {
+        series: {
+            labels: ["A", "B"],
+            stack: false,
+            bars: {
+                show: true,
+                barWidth: 0.6
+            }
+        }, grid: {
             hoverable: true
         }
     });
@@ -64,6 +28,7 @@ $(function () {
 //add tooltip event
     $("#vertical_bars").bind("plothover", function (event, pos, item) {
         if (item) {
+            console.log(item)
             if (previousPoint != item.datapoint) {
                 previousPoint = item.datapoint;
 
@@ -92,5 +57,14 @@ $(function () {
 
     });
 
+    function showTooltip(x, y, contents, areAbsoluteXY) {
+        var rootElt = 'body';
 
+        $('<div id="tooltip" class="chart-tooltip">' + contents + '</div>').css({
+            top: y - 50,
+            left: x - 6,
+            opacity: 0.9
+        }).prependTo(rootElt).show();
+    }
+    ;
 });
