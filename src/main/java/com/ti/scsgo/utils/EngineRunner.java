@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,7 +16,7 @@ import java.util.Scanner;
  * @author a0284021
  */
 public class EngineRunner {
-
+    
     public static EngineRun run(File file) throws FileNotFoundException {
         // read file and get req values
 
@@ -31,7 +30,7 @@ public class EngineRunner {
             // date
             date = LocalDate.parse(scanner.next(), DateTimeFormatter.BASIC_ISO_DATE);
             try {
-
+                
                 while (scanner.hasNext()) {
                     final String ln = scanner.next();
                     GroupSetup groupSetup = parseLine(ln);
@@ -44,18 +43,18 @@ public class EngineRunner {
             }
         }
 
-        // sort according to demand
-        grpSetupLst.sort(
-                (o1, o2) -> Double.compare(o1.getDemand(), o2.getDemand()));
-
+        // sort according to demand DESC
+//        grpSetupLst.sort(
+//                (o1, o2) -> Double.compare( o2.getDemand(),o1.getDemand()));
         // set values here
         Engine e = new Engine(grpSetupLst, manP);
         final EngineRun engineRun = EngineRun.run(e);
         engineRun.setDate(date);
-
+        engineRun.setFileName(file.getName());
+        
         return engineRun;
     }
-
+    
     private static GroupSetup parseLine(final String ln) throws NumberFormatException {
         final String[] lsSplt = ln.split(",");
         double demand = Double.valueOf(lsSplt[0]);
@@ -66,8 +65,8 @@ public class EngineRunner {
         final GroupSetup groupSetup = new GroupSetup(grpName, demand, eqCount, pph, epp);
         return groupSetup;
     }
-
+    
     private EngineRunner() {
     }
-
+    
 }

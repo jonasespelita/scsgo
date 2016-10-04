@@ -45,12 +45,15 @@
 
                 <div class="fluid">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><h6 class="panel-title">Demand Breakdown</h6></div>
+                        <div class="panel-heading">
+                            <h6 class="panel-title">Demand Breakdown</h6>
+                        </div>
                         <div class="tabbable">
                             <ul class="nav nav-tabs">
                                 <li th:each="i : ${#numbers.sequence( 1, runCount)}" 
                                     th:classappend="${i}==1 ? active">
-                                    <a data-toggle="tab" 
+                                    <a data-toggle="tab"
+                                       th:attr="ref=${i}"
                                        th:href="@{#toolbar-tab} + ${i}"
                                        th:text="W +${i}">W1</a>
                                 </li>
@@ -61,53 +64,27 @@
                                      th:id="toolbar-tab + ${i}"
                                      th:classappend="${i}==1 ? 'in active'"
                                      class="tab-pane fade">
-                                    <div class="isLoaded"></div>
+                                    <span th:id="file-lbl + ${i}"
+                                          class="label label-info">Info</span>
                                     <!-- Vertical bars -->
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h6 class="panel-title">Demand Satisfied (qty)</h6>
-                                                    <div class="btn-group pull-right">
-                                                        <button class="btn btn-sm btn-xs btn-icon" data-toggle="dropdown"><i class="fa fa-cogs"></i></button>
-                                                        <ul class="dropdown-menu dropdown-menu-right">
-                                                            <li><a href="#">Filter</a></li>
-                                                            <li><a href="#">Group</a></li>
-                                                            <li><a href="#">Aggregate</a></li>
-                                                            <li><a href="#">Just another cool function</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <div class="graph" id="vertical_bars"></div>
-                                                </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title">Demand Satisfied (qty)</h6>
+                                            <div class="btn-group pull-right">
+                                                <button class="btn btn-sm btn-xs btn-icon" data-toggle="dropdown"><i class="fa fa-cogs"></i></button>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="#">Filter</a></li>
+                                                    <li><a href="#">Group</a></li>
+                                                    <li><a href="#">Aggregate</a></li>
+                                                    <li><a href="#">Just another cool function</a></li>
+                                                </ul>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <!-- Pie -->
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h6 class="panel-title">Man Distribution</h6>
-                                                    <div class="btn-group pull-right">
-                                                        <button class="btn btn-sm btn-xs btn-icon" data-toggle="dropdown"><i class="fa fa-cogs"></i></button>
-                                                        <ul class="dropdown-menu dropdown-menu-right">
-                                                            <li><a href="#">Filter</a></li>
-                                                            <li><a href="#">Group</a></li>
-                                                            <li><a href="#">Aggregate</a></li>
-                                                            <li><a href="#">Just another cool function</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <div class="graph" id="man_dist"></div>
-                                                </div>
-                                            </div>
-                                            <!-- /pie -->
+                                        <div class="panel-body">
+                                            <div class="graph-standard" th:id="vertical_bars + ${i}"></div>
                                         </div>
                                     </div>
-                                    <!-- /vertical bars -->
 
-                                    <!-- Vertical bars -->
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h6 class="panel-title">Demand Balancing</h6>
@@ -122,13 +99,35 @@
                                             </div>
                                         </div>
                                         <div class="panel-body">
-                                            <div class="graph-standard" id="vertical_bars_pct"></div>
+                                            <div class="graph-standard" th:id="vertical_bars_pct + ${i}"></div>
                                         </div>
                                     </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title">Man Distribution</h6>
+                                            <div class="btn-group pull-right">
+                                                <button class="btn btn-sm btn-xs btn-icon" data-toggle="dropdown"><i class="fa fa-cogs"></i></button>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="#">Filter</a></li>
+                                                    <li><a href="#">Group</a></li>
+                                                    <li><a href="#">Aggregate</a></li>
+                                                    <li><a href="#">Just another cool function</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="graph-standard" th:id="man_dist + ${i}"></div>
+                                        </div>
+                                    </div>
+                                    <!-- /pie -->
+                                    <!-- /vertical bars -->
+
+                                    <!-- Vertical bars -->
+
                                     <!-- /vertical bars -->                                
                                 </div>
                             </div> 
-                                    <!-- end tab-->
+                            <!-- end tab-->
 
                         </div>
                     </div>

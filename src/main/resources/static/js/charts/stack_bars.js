@@ -15,7 +15,6 @@ $(function () {
         colors: ["#ee7951", "#6db6ee", "#95c832", "#993eb7", "#3ba3aa"],
         series: {
             labels: ["A", "B"],
-            stack: false,
             bars: {
                 show: true,
                 barWidth: 0.6
@@ -56,7 +55,7 @@ $(function () {
     });
 
 //add tooltip event
-    $("#vertical_bars").bind("plothover", function (event, pos, item) {
+    $("#vertical_bars_pct").bind("plothover", function (event, pos, item) {
         if (item) {
             if (previousPoint != item.datapoint) {
                 previousPoint = item.datapoint;
@@ -94,6 +93,5 @@ $(function () {
             left: x - 6,
             opacity: 0.9
         }).prependTo(rootElt).show();
-    }
-    ;
+    };
 });

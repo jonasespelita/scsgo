@@ -29,8 +29,8 @@ public class EngineRunnerTest {
     public void testRun() throws Exception {
         File file = new File("sample data/100916-PHI.csv");
         EngineRun result = EngineRunner.run(file);
-        final List<GroupSetup> groupSetup = result.getGroupSetup();
-        System.out.println("groupSetup = " + groupSetup);
+        System.out.println("result= " + result);
+        
     }
 
 }

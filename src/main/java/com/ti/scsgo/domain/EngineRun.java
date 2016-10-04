@@ -20,7 +20,16 @@ public class EngineRun implements Comparable {
     private LocalDate date;
     private final double excessManpower;
     private final double totalManpower;
+    private String fileName;
 
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+    
     public static EngineRun run(Engine e) {
         e.run();
         EngineRun engineRun = new EngineRun(e.getExcessManpower(), e.getTotalManpower());
