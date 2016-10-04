@@ -4,7 +4,11 @@ import com.ti.scsgo.domain.EngineRun;
 import com.ti.scsgo.service.EngineRunService;
 import com.ti.scsgo.service.FileUploadService;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +76,33 @@ public class DashboardController {
     public EngineRun getRunData(@PathVariable int id) throws IOException {
         checkEngine();
         return runEngine.get(id);
+    }
+
+    @GetMapping("/getTable/{id}")
+    @ResponseBody
+    public Map<String, List<List<String>>> getTable(@PathVariable int id) throws IOException {
+        checkEngine();
+        final EngineRun engineRun = runEngine.get(id);
+        Map<String, List<List<String>>> table = new HashMap<>();
+
+        final List<List<String>> rows = engineRun.getGroupSetup().stream()
+                .map(x -> {
+                    List<String> str = new ArrayList<>();
+                    str.add(x.getName());
+                    str.add(Double.toString(x.getDemand()));
+                    str.add(Double.toString(x.getEquipments()));
+                    str.add(Double.toString(Math.round(x.getPPH())));
+                    str.add(Double.toString(Math.round(x.getEPP())));
+                    str.add(Double.toString(Math.round(x.getManpower())));
+                    str.add(Double.toString(Math.round(x.getEquipmentUtilization()*100000)/1000));
+                    str.add(Double.toString(Math.round(x.getTotalOutput())));
+                    str.add(Double.toString(Math.round(x.getDemandSatisfaction()*100000)/1000));
+                    str.add(Double.toString(Math.round(x.getExcessManpower())));
+                    return str;
+                }).collect(Collectors.toList());
+
+        table.put("data", rows);
+        return table;
     }
 
     @GetMapping("/reset")

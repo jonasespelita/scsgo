@@ -1,4 +1,8 @@
 $(function () {
+    $('#datatable1').DataTable({
+        'ajax': {url: 'getTable/0', cache: false}
+    });
+
     loadData(1);
     var loaded = {1: true}
     $('.nav-tabs a').on('click', function () {
@@ -10,10 +14,10 @@ $(function () {
     function loadData(i) {
 
         $.getJSON('getData/' + (i - 1), function (data) {
-            console.log(data);
             var fileName = data.fileName;
-            $('#file-lbl' + i).text(fileName);
+            $('#file-lbl' + i).text(fileName + ' - ' + data.dateStr);
             var groupSetup = data.groupSetup;
+
 
             var labels = [];
             var demandQty = [];
@@ -30,8 +34,6 @@ $(function () {
                 demandPct.push([index, 100]);
                 outputPct.push([index, (this.totalOutput / this.demand) * 100]);
             });
-//        console.log(demandQty)
-//        console.log(outputQty)
             $.plot($("#vertical_bars" + i), [demandQty, outputQty], {
                 colors: ["#ee7951", "#6db6ee", "#95c832", "#993eb7", "#3ba3aa"],
                 series: {

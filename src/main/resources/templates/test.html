@@ -119,13 +119,50 @@
                                             <div class="graph-standard" th:id="man_dist + ${i}"></div>
                                         </div>
                                     </div>
-                                    <!-- /pie -->
-                                    <!-- /vertical bars -->
 
-                                    <!-- Vertical bars -->
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title">Demand Equipment Manpower Pareto</h6>
+                                            <div class="btn-group pull-right">
+                                                <button class="btn btn-sm btn-xs btn-icon" data-toggle="dropdown"><i class="fa fa-cogs"></i></button>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="#">Filter</a></li>
+                                                    <li><a href="#">Group</a></li>
+                                                    <li><a href="#">Aggregate</a></li>
+                                                    <li><a href="#">Just another cool function</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="graph-standard" th:id="demp + ${i}"></div>
+                                        </div>
+                                    </div>
 
-                                    <!-- /vertical bars -->                                
+                                    <!-- Default datatable inside panel -->
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><h6 class="panel-title">Default datatable inside panel</h6></div>
+                                        <div class="mydatatable">
+                                            <table class="table" th:id="datatable + ${i}">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Group</th>
+                                                        <th>Demand Quantity</th>
+                                                        <th>Equipment Count</th>
+                                                        <th>PPH</th>
+                                                        <th>Equip per Person</th>
+                                                        <th>Manpower Allocation</th>
+                                                        <th>Equipment utilization</th>
+                                                        <th>Demand Satisfied(units)</th>
+                                                        <th>Demand Satisfied(pct)</th>
+                                                        <th>Excess Manpower</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
+                                <!-- /default datatable inside panel -->
+
                             </div> 
                             <!-- end tab-->
 
