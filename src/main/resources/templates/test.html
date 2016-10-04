@@ -9,7 +9,7 @@
 
         <script th:replace="fragments/script/general"/>
         <script th:replace="fragments/script/charts"/>
-        <script type="text/javascript" src="js/dashboard.js"></script>
+        <script type="text/javascript" src="js/charts/stack_bars.js"></script>
 
     </head>
 
@@ -41,15 +41,20 @@
                     <h5><i class="fa fa-user-md"></i> Input</h5>
                 </div>
                 <!-- /page title -->
-                <form class="mainForm" action="">
-                    <!-- File upload -->
-                    <fieldset>
-                        <div class="widget">    
-                            <div class="head"><h5 class="iUpload">File upload</h5></div>
-                            <div id="uploader">You browser doesn't have HTML 4 support.</div>                    
-                        </div>
-                    </fieldset>
-                </form>
+
+                <!-- Vertical bars -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Demand Satisfied (qty)</h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="graph-standard" id="vertical_bars"></div>
+                    </div>
+                </div>
+                <!-- /vertical bars -->
+
+
+
             </div>
             <!-- /page content -->
 
