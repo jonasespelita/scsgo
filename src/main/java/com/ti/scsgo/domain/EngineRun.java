@@ -5,12 +5,13 @@ import com.ti.sc.scsgo.GroupSetup;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  *
  * @author a0284021
  */
-public class EngineRun implements Comparable{
+public class EngineRun implements Comparable {
 
     final private List<GroupSetup> groupSetup = new ArrayList<>();
     private String dateStr;
@@ -58,6 +59,11 @@ public class EngineRun implements Comparable{
     @Override
     public int compareTo(Object o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

@@ -1,4 +1,7 @@
 $(function () {
+
+    $(".tabs").tabs();
+
     var d1 = [];
     for (var i = 0; i <= 100; i += 1) {
         d1.push([i, parseInt(Math.random() * 30)]);
@@ -8,7 +11,6 @@ $(function () {
     for (var i = 0; i <= 100; i += 1) {
         d2.push([i, parseInt(Math.random() * 30)]);
     }
-    console.log(d1)
     //Display graph
     $.plot($("#vertical_bars"), [d1, d2], {
         colors: ["#ee7951", "#6db6ee", "#95c832", "#993eb7", "#3ba3aa"],
@@ -24,11 +26,27 @@ $(function () {
         }
     });
 
+    $.plot($("#vertical_bars_pct"), [d1, d2], {
+        colors: ["#ee7951", "#6db6ee", "#95c832", "#993eb7", "#3ba3aa"],
+        bars: {
+            show: true,
+            barWidth: 0.6
+        },
+        grid: {
+            hoverable: true
+        }
+    });
+
+    $.plot($("#line_trend"), [d1, d2], {
+        colors: ["#ee7951", "#6db6ee", "#95c832", "#993eb7", "#3ba3aa"],
+        grid: {
+            hoverable: true
+        }
+    });
 
 //add tooltip event
     $("#vertical_bars").bind("plothover", function (event, pos, item) {
         if (item) {
-            console.log(item)
             if (previousPoint != item.datapoint) {
                 previousPoint = item.datapoint;
 

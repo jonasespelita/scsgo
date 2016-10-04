@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
  *
  * @author a0284021
  */
-@Component
 public class EngineRunner {
 
     public static EngineRun run(File file) throws FileNotFoundException {
@@ -60,4 +59,8 @@ public class EngineRunner {
         final GroupSetup groupSetup = new GroupSetup(grpName, demand, eqCount, pph, epp);
         return groupSetup;
     }
+
+    private EngineRunner() {
+    }
+
 }

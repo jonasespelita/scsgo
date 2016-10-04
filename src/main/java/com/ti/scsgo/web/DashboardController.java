@@ -33,6 +33,11 @@ public class DashboardController {
         return "index";
     }
 
+    @GetMapping("/chart")
+    public String chart() throws IOException {
+        return "charts";
+    }
+
     @PostMapping("/upload")
     @ResponseBody
     public String upload(
@@ -49,7 +54,16 @@ public class DashboardController {
     }
 
     @GetMapping("/test")
-    public String test() {
+    public String test(Model model) {
+        model.addAttribute("runCount", 8);
         return "test";
     }
+
+    @GetMapping("/getData")
+    @ResponseBody
+    public String getRunData() {
+        
+        return "SUCCESS";
+    }
+
 }
