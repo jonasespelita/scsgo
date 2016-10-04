@@ -1,6 +1,5 @@
 $(function () {
 
-    $(".tabs").tabs();
 
     var d1 = [];
     for (var i = 0; i <= 100; i += 1) {
@@ -36,6 +35,18 @@ $(function () {
             hoverable: true
         }
     });
+    $.plot($("#man_dist"), [d1], {
+        colors: ["#ee7951", "#6db6ee", "#95c832", "#993eb7", "#3ba3aa"],
+        bars: {
+            show: true,
+            barWidth: 0.6
+        },
+        grid: {
+            hoverable: true
+        }
+    });
+    
+    
 
     $.plot($("#line_trend"), [d1, d2], {
         colors: ["#ee7951", "#6db6ee", "#95c832", "#993eb7", "#3ba3aa"],

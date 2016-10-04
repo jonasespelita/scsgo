@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ public class EngineRunService {
 
         LOG.debug("Found list of files. {}", files);
 
-        final List<EngineRun> collect = files.stream()
+        final List<EngineRun> engineRuns = files.stream()
                 // run engine for each file
                 .map(file -> {
                     Optional<EngineRun> run = Optional.empty();
@@ -53,7 +54,8 @@ public class EngineRunService {
                 .map(run -> run.get())
                 .collect(Collectors.toList());
 
-        return collect;
+        Collections.sort(engineRuns);
+        return engineRuns;
     }
 
 }

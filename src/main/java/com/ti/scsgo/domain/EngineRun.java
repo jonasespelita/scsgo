@@ -2,9 +2,12 @@ package com.ti.scsgo.domain;
 
 import com.ti.sc.scsgo.Engine;
 import com.ti.sc.scsgo.GroupSetup;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -14,7 +17,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class EngineRun implements Comparable {
 
     final private List<GroupSetup> groupSetup = new ArrayList<>();
-    private String dateStr;
+    private LocalDate date;
     private final double excessManpower;
     private final double totalManpower;
 
@@ -49,16 +52,19 @@ public class EngineRun implements Comparable {
     }
 
     public String getDateStr() {
-        return dateStr;
+        return date.format(DateTimeFormatter.BASIC_ISO_DATE);
     }
 
-    public void setDateStr(String dateStr) {
-        this.dateStr = dateStr;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     @Override
     public int compareTo(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EngineRun er = (EngineRun) o;
+        return new CompareToBuilder()
+                .append(this.date, er.date)
+                .toComparison();
     }
 
     @Override

@@ -5,10 +5,12 @@ import com.ti.sc.scsgo.GroupSetup;
 import com.ti.scsgo.domain.EngineRun;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import org.springframework.stereotype.Component;
 
 /**
  *
@@ -19,21 +21,21 @@ public class EngineRunner {
     public static EngineRun run(File file) throws FileNotFoundException {
         // read file and get req values
 
-        final List<GroupSetup> grpSetup = new ArrayList<>();
+        final List<GroupSetup> grpSetupLst = new ArrayList<>();
         int manP;
+        LocalDate date = null;
         try (Scanner scanner = new Scanner(file)) {
             // manpower 
             manP = scanner.nextInt();
             System.out.println("manP = " + manP);
             // date
-            String dateStr = scanner.next();
-            System.out.println("dateStr = " + dateStr);
-
+            date = LocalDate.parse(scanner.next(), DateTimeFormatter.BASIC_ISO_DATE);
             try {
+
                 while (scanner.hasNext()) {
                     final String ln = scanner.next();
                     GroupSetup groupSetup = parseLine(ln);
-                    grpSetup.add(groupSetup);
+                    grpSetupLst.add(groupSetup);
                 }
             } catch (Exception e) {
                 //TODO do LOG
@@ -42,9 +44,14 @@ public class EngineRunner {
             }
         }
 
+        // sort according to demand
+        grpSetupLst.sort(
+                (o1, o2) -> Double.compare(o1.getDemand(), o2.getDemand()));
+
         // set values here
-        Engine e = new Engine(grpSetup, manP);
+        Engine e = new Engine(grpSetupLst, manP);
         final EngineRun engineRun = EngineRun.run(e);
+        engineRun.setDate(date);
 
         return engineRun;
     }
