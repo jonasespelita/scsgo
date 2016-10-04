@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +32,11 @@ public class EngineRunService {
 
         // get file list
         Path p = Paths.get(TMP_DIR);
+
+        
+        if (!p.toFile().exists()) {
+            return new ArrayList<>();
+        }
         final List<File> files = Files.walk(p)
                 .map(f -> f.toFile())
                 .peek((f) -> LOG.trace("looking at {}", f))

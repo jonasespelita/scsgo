@@ -522,6 +522,10 @@ label.error.valid {
   font-size: 15px;
 }
 
+.stats li span.small{
+  font-size: 13px;
+}
+
 
 @media (max-width: 768px) {
   .stats {

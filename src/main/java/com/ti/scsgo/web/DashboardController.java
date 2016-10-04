@@ -1,9 +1,12 @@
 package com.ti.scsgo.web;
 
 import com.ti.scsgo.domain.EngineRun;
+import com.ti.scsgo.domain.Trend;
 import com.ti.scsgo.service.EngineRunService;
 import com.ti.scsgo.service.FileUploadService;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,27 +29,27 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 public class DashboardController {
-
+    
     private List<EngineRun> runEngine;
-
+    
     Logger LOG = LoggerFactory.getLogger(DashboardController.class);
-
+    
     @Autowired
     protected FileUploadService fs;
     @Autowired
     protected EngineRunService es;
-
+    
     @GetMapping("/")
     public String home() throws IOException {
         reset();
         return "index";
     }
-
+    
     @GetMapping("/chart")
     public String chart() throws IOException {
         return "charts";
     }
-
+    
     @PostMapping("/upload")
     @ResponseBody
     public String upload(
@@ -57,54 +60,70 @@ public class DashboardController {
         runEngine = es.runEngine();
         return "SUCCESS";
     }
-
+    
     @GetMapping("/report")
     @ResponseBody
     public String report(Model model) {
         return "report";
     }
-
+    
     @GetMapping("/test")
     public String test(Model model) throws IOException {
         checkEngine();
         model.addAttribute("runCount", runEngine.size());
         return "test";
     }
-
+    
     @GetMapping("/getData/{id}")
     @ResponseBody
     public EngineRun getRunData(@PathVariable int id) throws IOException {
         checkEngine();
         return runEngine.get(id);
     }
-
+    
     @GetMapping("/getTable/{id}")
     @ResponseBody
     public Map<String, List<List<String>>> getTable(@PathVariable int id) throws IOException {
         checkEngine();
         final EngineRun engineRun = runEngine.get(id);
         Map<String, List<List<String>>> table = new HashMap<>();
-
-        final List<List<String>> rows = engineRun.getGroupSetup().stream()
-                .map(x -> {
+        
+        final NumberFormat fmt = new DecimalFormat("#0.00");
+        final List<List<String>> rows = engineRun.getGroupSetups()
+                .stream()
+                .map(grpSetup -> {
                     List<String> str = new ArrayList<>();
-                    str.add(x.getName());
-                    str.add(Double.toString(x.getDemand()));
-                    str.add(Double.toString(x.getEquipments()));
-                    str.add(Double.toString(Math.round(x.getPPH())));
-                    str.add(Double.toString(Math.round(x.getEPP())));
-                    str.add(Double.toString(Math.round(x.getManpower())));
-                    str.add(Double.toString(Math.round(x.getEquipmentUtilization()*100000)/1000));
-                    str.add(Double.toString(Math.round(x.getTotalOutput())));
-                    str.add(Double.toString(Math.round(x.getDemandSatisfaction()*100000)/1000));
-                    str.add(Double.toString(Math.round(x.getExcessManpower())));
+                    str.add(grpSetup.getName());
+                    str.add(fmt.format(grpSetup.getDemand()));
+                    str.add(fmt.format(grpSetup.getEquipments()));
+                    str.add(fmt.format(grpSetup.getPPH()));
+                    str.add(fmt.format(grpSetup.getEPP()));
+                    str.add(fmt.format(grpSetup.getManpower()));
+                    str.add(fmt.format(grpSetup.getEquipmentUtilization()));
+                    str.add(fmt.format(grpSetup.getTotalOutput()));
+                    str.add(fmt.format(grpSetup.getDemandSatisfaction()));
+                    str.add(fmt.format(grpSetup.getExcessManpower()));
                     return str;
                 }).collect(Collectors.toList());
-
+        
         table.put("data", rows);
         return table;
     }
-
+    
+    @GetMapping("/getTrends")
+    @ResponseBody
+    public List<Trend> getTrends() throws IOException {
+        checkEngine();
+        return runEngine.stream().map(
+                x -> {
+                    final Trend trend = new Trend();
+                    trend.setTotalDemand(x.getTotalDemand());
+                    trend.setTotalOutput(x.getTotalOut());
+                    trend.setWeek(x.getDateStr());
+                    return trend;
+                }).collect(Collectors.toList());
+    }
+    
     @GetMapping("/reset")
     @ResponseBody
     public String reset() throws IOException {
@@ -115,7 +134,7 @@ public class DashboardController {
         fs.clearTmp();
         return "SUCCESS";
     }
-
+    
     private void checkEngine() throws IOException {
         // check if we have, else rerun engine
         if (runEngine == null) {

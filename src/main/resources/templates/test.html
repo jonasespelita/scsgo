@@ -63,9 +63,37 @@
                                 <div th:each="i : ${#numbers.sequence( 1, runCount)}" 
                                      th:id="toolbar-tab + ${i}"
                                      th:classappend="${i}==1 ? 'in active'"
-                                     class="tab-pane fade">
+                                     class="tab-pane">
+
+                                    <ul class="row stats">
+                                        <li class="col-xs-2"><a href="#" class="btn btn-default" th:id="manCnt + ${i}">52</a> <span >man count</span></li>
+                                        <li class="col-xs-2"><a href="#" class="btn btn-default" th:id="eqCnt + ${i}">520</a> <span>equipment count</span></li>
+                                        <li class="col-xs-2"><a href="#" class="btn btn-default" th:id="grpCnt + ${i}">48</a> <span>groupings</span></li>
+                                        <li class="col-xs-3"><a href="#" class="btn btn-default" th:id="optManCnt + ${i}">14</a> <span class="small">optimal man count to maximize equipments</span></li>
+                                        <li class="col-xs-3"><a href="#" class="btn btn-default" th:id="optManCntDmd + ${i}">14</a> <span class="small">optimal man count to maximize demand</span></li>
+                                    </ul>
+
                                     <span th:id="file-lbl + ${i}"
                                           class="label label-info">Info</span>
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title">Man Distribution</h6>
+                                            <div class="btn-group pull-right">
+                                                <button class="btn btn-sm btn-xs btn-icon" data-toggle="dropdown"><i class="fa fa-cogs"></i></button>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="#">Filter</a></li>
+                                                    <li><a href="#">Group</a></li>
+                                                    <li><a href="#">Aggregate</a></li>
+                                                    <li><a href="#">Just another cool function</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="graph-standard" th:id="man_dist + ${i}"></div>
+                                        </div>
+                                    </div>
+
                                     <!-- Vertical bars -->
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -102,46 +130,33 @@
                                             <div class="graph-standard" th:id="vertical_bars_pct + ${i}"></div>
                                         </div>
                                     </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h6 class="panel-title">Man Distribution</h6>
-                                            <div class="btn-group pull-right">
-                                                <button class="btn btn-sm btn-xs btn-icon" data-toggle="dropdown"><i class="fa fa-cogs"></i></button>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="#">Filter</a></li>
-                                                    <li><a href="#">Group</a></li>
-                                                    <li><a href="#">Aggregate</a></li>
-                                                    <li><a href="#">Just another cool function</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="graph-standard" th:id="man_dist + ${i}"></div>
-                                        </div>
-                                    </div>
 
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h6 class="panel-title">Demand Equipment Manpower Pareto</h6>
-                                            <div class="btn-group pull-right">
-                                                <button class="btn btn-sm btn-xs btn-icon" data-toggle="dropdown"><i class="fa fa-cogs"></i></button>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="#">Filter</a></li>
-                                                    <li><a href="#">Group</a></li>
-                                                    <li><a href="#">Aggregate</a></li>
-                                                    <li><a href="#">Just another cool function</a></li>
-                                                </ul>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h6 class="panel-title">Demand Equipment Manpower Pareto</h6>
+                                                    <div class="btn-group pull-right">
+                                                        <button class="btn btn-sm btn-xs btn-icon" data-toggle="dropdown"><i class="fa fa-cogs"></i></button>
+                                                        <ul class="dropdown-menu dropdown-menu-right">
+                                                            <li><a href="#">Filter</a></li>
+                                                            <li><a href="#">Group</a></li>
+                                                            <li><a href="#">Aggregate</a></li>
+                                                            <li><a href="#">Just another cool function</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="graph-standard" th:id="demp + ${i}"></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="graph-standard" th:id="demp + ${i}"></div>
                                         </div>
                                     </div>
 
                                     <!-- Default datatable inside panel -->
                                     <div class="panel panel-default">
-                                        <div class="panel-heading"><h6 class="panel-title">Default datatable inside panel</h6></div>
-                                        <div class="mydatatable">
+                                        <div class="panel-heading"><h6 class="panel-title">Raw Data</h6></div>
+                                        <div class="datatable">
                                             <table class="table" th:id="datatable + ${i}">
                                                 <thead>
                                                     <tr>

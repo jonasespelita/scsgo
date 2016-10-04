@@ -16,11 +16,90 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class EngineRun implements Comparable {
 
-    final private List<GroupSetup> groupSetup = new ArrayList<>();
+    final private List<GroupSetup> groupSetups;
     private LocalDate date;
     private final double excessManpower;
     private final double totalManpower;
     private String fileName;
+
+    private double optManCnt;
+    private double optManCntDmd;
+    private double equipCnt;
+
+    private double potManOut;
+    private double potEqOut;
+
+    private double totalDemand;
+    private double totalOut;
+
+    public static EngineRun run(Engine e) {
+        e.run();
+        EngineRun engineRun = new EngineRun(e.getExcessManpower(), e.getTotalManpower());
+        engineRun.addAllSetup(e.getGroupSetups());
+
+        final double[] sums
+                = engineRun.groupSetups
+                .stream()
+                .map(setup -> {
+                    // extract manpower and equipments from each setup
+                    return new double[]{
+                        setup.getMaxManpower(), //0
+                        setup.getEquipments(), //1
+                        setup.getSuggestedMinManpower(), //2
+                        setup.getEquipments() * setup.getPPW(), //3
+                        setup.getManpower() * setup.getEPP() * setup.getPPW(),//4
+                        setup.getDemand(),//5
+                        setup.getTotalOutput()}; //6
+                })
+                .reduce((x, y) -> {
+                    // sum all values
+                    for (int i = 0; i < x.length; i++) {
+                        x[i] += y[i];
+                    }
+                    return x;
+                }).get();
+
+        engineRun.optManCnt = sums[0];
+        engineRun.equipCnt = sums[1];
+        engineRun.optManCntDmd = sums[2];
+        engineRun.potEqOut = sums[3];
+        engineRun.potManOut = sums[4];
+        engineRun.totalDemand = sums[5];
+        engineRun.totalOut = sums[6];
+        return engineRun;
+    }
+
+    public double getTotalDemand() {
+        return totalDemand;
+    }
+
+    public double getTotalOut() {
+        return totalOut;
+    }
+
+    public List<GroupSetup> getGroupSetups() {
+        return groupSetups;
+    }
+
+    public double getPotManOut() {
+        return potManOut;
+    }
+
+    public double getPotEqOut() {
+        return potEqOut;
+    }
+
+    public double getOptManCntDmd() {
+        return optManCntDmd;
+    }
+
+    public double getOptManCnt() {
+        return optManCnt;
+    }
+
+    public double getEquipCnt() {
+        return equipCnt;
+    }
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -29,17 +108,12 @@ public class EngineRun implements Comparable {
     public String getFileName() {
         return fileName;
     }
-    
-    public static EngineRun run(Engine e) {
-        e.run();
-        EngineRun engineRun = new EngineRun(e.getExcessManpower(), e.getTotalManpower());
-        engineRun.addAll(e.getGroupSetups());
-        return engineRun;
-    }
 
     private EngineRun(double excessManpower, double totalManpower) {
         this.excessManpower = excessManpower;
         this.totalManpower = totalManpower;
+        groupSetups = new ArrayList<>();
+
     }
 
     public double getExcessManpower() {
@@ -50,13 +124,9 @@ public class EngineRun implements Comparable {
         return totalManpower;
     }
 
-    public List<GroupSetup> getGroupSetup() {
-        return groupSetup;
-    }
-
-    private void addAll(Collection<? extends GroupSetup> groupSetup) {
+    private void addAllSetup(Collection<? extends GroupSetup> groupSetup) {
         if (groupSetup != null && groupSetup.size() > 0) {
-            this.groupSetup.addAll(groupSetup);
+            this.groupSetups.addAll(groupSetup);
         }
     }
 

@@ -22,17 +22,17 @@ $(function() {
 
 	//===== Default datatable =====//
 
-	oTable = $('.datatable table').dataTable({
-		"bJQueryUI": false,
-		"bAutoWidth": false,
-		"sPaginationType": "full_numbers",
-		"sDom": '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
-		"oLanguage": {
-			"sSearch": "<span>Filter:</span> _INPUT_",
-			"sLengthMenu": "<span>Show entries:</span> _MENU_",
-			"oPaginate": { "sFirst": "First", "sLast": "Last", "sNext": ">", "sPrevious": "<" }
-		}
-    });
+//	oTable = $('.datatable table').dataTable({
+//		"bJQueryUI": false,
+//		"bAutoWidth": false,
+//		"sPaginationType": "full_numbers",
+//		"sDom": '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+//		"oLanguage": {
+//			"sSearch": "<span>Filter:</span> _INPUT_",
+//			"sLengthMenu": "<span>Show entries:</span> _MENU_",
+//			"oPaginate": { "sFirst": "First", "sLast": "Last", "sNext": ">", "sPrevious": "<" }
+//		}
+//    });
 
 
 	//===== Table with selectable rows =====//
