@@ -1,5 +1,6 @@
 package com.ti.scsgo.web;
 
+import com.ti.scsgo.service.EngineRunService;
 import com.ti.scsgo.service.FileUploadService;
 import java.io.IOException;
 import org.slf4j.Logger;
@@ -23,6 +24,8 @@ public class DashboardController {
 
     @Autowired
     protected FileUploadService fs;
+    @Autowired
+    protected EngineRunService es;
 
     @GetMapping("/")
     public String home() throws IOException {
@@ -40,6 +43,7 @@ public class DashboardController {
     }
 
     @GetMapping("/report")
+    @ResponseBody
     public String report(Model model) {
         return "report";
     }

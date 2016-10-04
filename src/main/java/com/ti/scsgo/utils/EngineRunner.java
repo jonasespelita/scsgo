@@ -33,7 +33,6 @@ public class EngineRunner {
             try {
                 while (scanner.hasNext()) {
                     final String ln = scanner.next();
-                    System.out.println(ln);
                     GroupSetup groupSetup = parseLine(ln);
                     grpSetup.add(groupSetup);
                 }

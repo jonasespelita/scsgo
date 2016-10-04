@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author a0284021
  */
-public class EngineRun {
+public class EngineRun implements Comparable{
 
     final private List<GroupSetup> groupSetup = new ArrayList<>();
     private String dateStr;
@@ -53,6 +53,11 @@ public class EngineRun {
 
     public void setDateStr(String dateStr) {
         this.dateStr = dateStr;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
